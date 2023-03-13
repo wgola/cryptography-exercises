@@ -1,19 +1,15 @@
 import sys
-import os
-from cesar_cypher import CesarCypher
-from affine_cypher import AffineCypher
+from src.caesar_cypher import CesarCypher
+from src.affine_cypher import AffineCypher
 
 
 # Autor: Wojciech Gola
 
 def exit():
-    input("Press any key to exit...")
+    input("Press 'Enter' to exit...")
 
 
 def main():
-    PATH = os.path.realpath(os.path.join(
-        os.getcwd(), os.path.dirname(__file__)))
-
     first_arguments = ["-c", "-a"]
     second_arguments = ["-e", "-d", "-j", "-k"]
 
@@ -32,11 +28,19 @@ def main():
         return exit()
 
     if given_args[1] == "-c":
-        cypher = CesarCypher(PATH)
+        cypher = CesarCypher()
     else:
-        cypher = AffineCypher(PATH)
+        cypher = AffineCypher()
 
-    cypher.encrypt()
+    if given_args[2] == "-e":
+        cypher.encrypt()
+    elif given_args[2] == "-d":
+        cypher.decrypt()
+    elif given_args[2] == "-j":
+        cypher.cryptoanalysis_plain()
+    else:
+        cypher.cryptoanalysis_encrypted()
+
     return exit()
 
 

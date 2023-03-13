@@ -1,4 +1,4 @@
-from cypher import Cypher
+from src.cypher import Cypher
 
 
 class AffineCypher(Cypher):
@@ -16,4 +16,7 @@ class AffineCypher(Cypher):
         pass
 
     def cryptoanalysis_encrypted():
+        pass
+
+    def __check_key():
         pass
