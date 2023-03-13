@@ -4,6 +4,8 @@ from cesar_cypher import CesarCypher
 from affine_cypher import AffineCypher
 
 
+# Autor: Wojciech Gola
+
 def exit():
     input("Press any key to exit...")
 
@@ -30,11 +32,11 @@ def main():
         return exit()
 
     if given_args[1] == "-c":
-        cypher = CesarCypher(PATH, given_args[2])
+        cypher = CesarCypher(PATH)
     else:
-        cypher = AffineCypher(PATH, given_args[2])
+        cypher = AffineCypher(PATH)
 
-    print(cypher)
+    cypher.encrypt()
     return exit()
 
 
