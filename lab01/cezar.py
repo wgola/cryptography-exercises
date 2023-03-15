@@ -1,9 +1,8 @@
 import sys
-from src.caesar_cypher import CesarCypher
-from src.affine_cypher import AffineCypher
-
+from cypher import Cypher
 
 # Autor: Wojciech Gola
+
 
 def exit():
     input("Press 'Enter' to exit...")
@@ -27,19 +26,16 @@ def main():
         print("Wrong second argument!")
         return exit()
 
-    if given_args[1] == "-c":
-        cypher = CesarCypher()
-    else:
-        cypher = AffineCypher()
+    cypher = Cypher(given_args[1])
 
     if given_args[2] == "-e":
         cypher.encrypt()
     elif given_args[2] == "-d":
         cypher.decrypt()
     elif given_args[2] == "-j":
-        cypher.cryptoanalysis_plain()
+        cypher.cryptoanalysis_with_plain_text()
     else:
-        cypher.cryptoanalysis_encrypted()
+        cypher.cryptoanalysis_with_cryptogram()
 
     return exit()
 
