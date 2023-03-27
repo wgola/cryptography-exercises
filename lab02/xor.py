@@ -1,5 +1,5 @@
 import sys
-
+from prepare import prepare
 # Autor: Wojciech Gola
 
 
@@ -17,7 +17,7 @@ def main():
         return
 
     if option == "-p":
-        print("prepare")
+        prepare()
     elif option == "-e":
         print("encrypt")
     else:
