@@ -1,5 +1,6 @@
 import sys
 from prepare import prepare
+from encrypt import encrypt
 # Autor: Wojciech Gola
 
 
@@ -19,9 +20,7 @@ def main():
     if option == "-p":
         prepare()
     elif option == "-e":
-        print("encrypt")
-    else:
-        print("cryptoanalysis")
+        encrypt()
 
 
 if __name__ == "__main__":
