@@ -1,6 +1,7 @@
 import sys
 from prepare import prepare
 from encrypt import encrypt
+from cryptoanalisys import cryptoanalysis
 # Autor: Wojciech Gola
 
 
@@ -21,6 +22,8 @@ def main():
         prepare()
     elif option == "-e":
         encrypt()
+    else:
+        cryptoanalysis()
 
 
 if __name__ == "__main__":
