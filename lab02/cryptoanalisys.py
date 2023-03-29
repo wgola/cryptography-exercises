@@ -18,7 +18,6 @@ def cryptoanalysis():
                     if col[1] == "1":
                         for i in range(len(encrypted_text_signs)):
                             encrypted_sign = encrypted_text_signs[i][col_index]
-                            encrypted_line = ""
                             encrypted_line = format(
                                 int(encrypted_sign, 2) ^ int(col, 2), 'b')
 
