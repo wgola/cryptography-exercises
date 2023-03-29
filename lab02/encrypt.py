@@ -14,7 +14,7 @@ def encrypt():
         with open("crypto.txt", "w+") as crypto_file:
             for line in ascii_lines:
                 encrypted_line = ""
-                for i in range(len(key)):
+                for i in range(len(ascii_key)):
                     binary_sign = format(line[i] ^ ascii_key[i], 'b')
                     if len(binary_sign) < 8:
                         binary_sign = (8 - len(binary_sign)) * \
