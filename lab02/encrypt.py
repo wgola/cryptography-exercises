@@ -4,7 +4,7 @@ def encrypt():
     try:
         with open("key.txt", "r") as key_file:
             key = key_file.readline()
-            ascii_key = [ord(sign) for sign in key]
+            ascii_key = [ord(sign) for sign in key[:64]]
 
         with open("plain.txt", "r") as plain_file:
             plain_lines = plain_file.read().split("\n")
