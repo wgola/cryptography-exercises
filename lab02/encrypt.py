@@ -1,3 +1,5 @@
+# Autor: Wojciech Gola
+
 def encrypt():
     try:
         with open("key.txt", "r") as key_file:

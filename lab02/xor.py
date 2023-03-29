@@ -2,6 +2,7 @@ import sys
 from prepare import prepare
 from encrypt import encrypt
 from cryptoanalisys import cryptoanalysis
+
 # Autor: Wojciech Gola
 
 

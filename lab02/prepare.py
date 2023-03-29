@@ -1,3 +1,5 @@
+# Autor: Wojciech Gola
+
 def prepare():
     try:
         with open("orig.txt", "r") as orig_file:

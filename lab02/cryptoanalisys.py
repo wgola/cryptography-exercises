@@ -1,3 +1,5 @@
+# Autor: Wojciech Gola
+
 def cryptoanalysis():
     try:
         with open("crypto.txt", "r") as crypto_file:
