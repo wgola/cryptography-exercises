@@ -16,7 +16,7 @@ def get_key(block_size):
 def main():
     input_image = Image.open("plain.bmp")
 
-    BLOCK_SIZE = 8
+    BLOCK_SIZE = 16
 
     key = get_key(BLOCK_SIZE)
 
