@@ -3,6 +3,8 @@ from PIL import Image
 from ecb import ecb
 from cbc import cbc
 
+# Autor: Wojciech Gola
+
 
 def get_key(block_size):
     keys = []
