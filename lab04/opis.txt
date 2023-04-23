@@ -1,0 +1,6 @@
+Autor: Wojciech Gola
+
+Do programu diff.py należy podać jako argumenty dwa obliczone hashe, zwraca on informację o ilości różnych bitów. 
+
+Uruchomienie programu:
+python3 diff.py <hash 1> <hash 2>
