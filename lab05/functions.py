@@ -4,6 +4,21 @@ from math import gcd
 # Autor: Wojciech Gola
 
 
+def modular_inversion(a, m):
+    def helper(a, b):
+        if a == 0:
+            return (b, 0, 1)
+        else:
+            g, y, x = helper(b % a, a)
+            return (g, x - (b // a) * y, y)
+
+    g, x, y = helper(a, m)
+    if g != 1:
+        raise Exception('modular inverse does not exist')
+    else:
+        return x % m
+
+
 def message_string_to_int(filename):
     with open(filename) as file:
         text = file.readline()
@@ -33,10 +48,11 @@ def generate_keys():
 
     with open("private.txt", "w") as private_key_file:
         private_key_file.write(str(p) + "\n" + str(g) +
-                               "\n" + str(private_key))
+                               "\n" + str(private_key) + "\n")
 
     with open("public.txt", "w") as public_key_file:
-        public_key_file.write(str(p) + "\n" + str(g) + "\n" + str(public_key))
+        public_key_file.write(str(p) + "\n" + str(g) +
+                              "\n" + str(public_key) + "\n")
 
     print("Keys generated.")
 
@@ -59,7 +75,7 @@ def encrypt():
     second_elem = str(((message % p) * pow(public_key, k, p)) % p)
 
     with open("crypto.txt", "w") as crypto_file:
-        crypto_file.write(first_elem + "\n" + second_elem)
+        crypto_file.write(first_elem + "\n" + second_elem + "\n")
 
     print("Message encrypted.")
 
@@ -75,11 +91,11 @@ def decrypt():
         second_elem = int(crypto_file.readline())
 
     key = pow(first_elem, private_key, p)
-    inverse_key = pow(key, -1, p)
+    inverse_key = modular_inversion(key, p)
 
     with open("decrypt.txt", "w") as decrypted_file:
         decrypted_file.write(message_int_to_string(
-            (second_elem * inverse_key) % p))
+            (second_elem * inverse_key) % p) + "\n")
 
     print("Message decrypted.")
 
@@ -102,10 +118,10 @@ def sign():
 
     first_elem = pow(g, k, p)
     second_elem = int(
-        ((message - private_key * first_elem) * pow(k, -1, p-1)) % (p-1))
+        ((message - private_key * first_elem) * modular_inversion(k, p-1)) % (p-1))
 
     with open("signature.txt", "w") as signature_file:
-        signature_file.write(str(first_elem) + "\n" + str(second_elem))
+        signature_file.write(str(first_elem) + "\n" + str(second_elem) + "\n")
 
     print("Message signed.")
 
@@ -127,6 +143,6 @@ def verify():
         pow(public_key, first_elem, p)
 
     with open("verify.txt", "w") as verify_file:
-        verify_file.write(str(first_value == (second_value % p)))
+        verify_file.write(str(first_value == (second_value % p)) + "\n")
 
     print("Verification result:", first_value == (second_value % p))
