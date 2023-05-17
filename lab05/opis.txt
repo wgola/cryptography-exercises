@@ -1,0 +1,9 @@
+Autor: Wojciech Gola
+
+Aby program działał poprawnie należy uruchomić go z poziomu folderu, 
+w którym znajdują się wszystkie pliki poprzez polecenie:
+
+python3 elgamal.py opcja
+
+Aby program poprawnie działał, wiadomości w plikach plain.txt oraz message.txt powinny zostać zapisane słownie,
+następnie program przekształca je w liczby i na ich podstawie dokonuje obliczeń.
