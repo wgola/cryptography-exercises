@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<meta name="author" content="Andrzej Borzyszkowski" />
+		<meta http-equiv="CONTENT-TYPE" content="TEXT/HTML; CHARSET=UTF-8" />
+		<meta http-equiv="CACHE-CONTROL" content="NO-STORE,NO-CACHE" />
+		<meta name="ROBOTS" content="NONE" />
+		<meta
+			name="keywords"
+			content="Andrzej Borzyszkowski, Uniwersytet, Uniwersytet Gdanski, Gdansk, Uniwersytet Gdański, Gdańsk, Informatyka, Informa, UG, II, Kryptografia, Cryptography, CS, Computer Science"
+		/>
+		<link rel="stylesheet" type="text/css" href="../css/main.css" />
+		<title>Kryptografia: System ElGamala</title>
+	</head>
+	<body>
+		<div class="reverse">
+			Andrzej M. Borzyszkowski<img
+				src="../amb-100x100.png"
+				alt="Andrzej M. Borzyszkowski"
+				align="right"
+				height="100"
+				width="100"
+			/>
+		</div>
+		<div class="reverse">System ElGamala</div>
+		<div class="main">
+			<p>
+				System ten opiera się o&nbsp;trudność problemu Diffie-Hellmana,
+				wersja bardziej złożona jest podstawą amerykańskiego standardu
+				podpisu cyfrowego DSA. Przygotowanie kluczy wymaga znalezienie
+				liczby&nbsp;<i>p</i>, jeśli nie pseudopierwszej, to przynajmniej
+				takiej, że <i>p&minus;1</i> ma duży dzielnik pierwszy.
+				W&nbsp;zadaniu poniższym dla uproszczenia nie będziemy się tym
+				zajmować.
+			</p>
+			<p>
+				Następnym problemem jest znalezienie generatora.
+				<i>g</i>&nbsp;jest generatorem
+				Z<i>p·</i>&nbsp;=&nbsp;{1,2,...,<i>p&minus;1</i>} jeśli kolejne
+				potęgi <i>g</i>&nbsp;mod&nbsp;<i>p</i> wyczerpują cały zbiór
+				reszt. Generatorów jest dość dużo (dokładniej, ich liczba jest
+				równa liczbie Eulera <i>&phi;</i>(<i>p&minus;1</i>)).
+				W&nbsp;zadaniu poniższym dla uproszczenia również nie będziemy
+				się tym zajmować.
+			</p>
+			<p>
+				<b>Kryptosystem ElGamala</b>: dane są liczba pierwsza&nbsp;
+				<i>p</i> oraz generator&nbsp;<i>g</i> grupy
+				Z<i>p·&nbsp;</i>=&nbsp;{1,2,...,<i>p&minus;</i>1}. Mogą być one
+				ustalone jeden raz dla większej liczby uczestników. Kluczem
+				prywatnym Bolka jest dowolna liczba&nbsp;<i>b</i>,
+				a&nbsp;kluczem publicznym potęga
+				<i>&beta;=g<sup>b</sup>&nbsp</i>(mod&nbsp;<i>p</i>). Nie można
+				obliczyć wykładnika ze znajomości potęgi, ale oczywiście
+				zależność odwrotna nie zachodzi. Tak więc kluczy tych nie można
+				zamienić miejscami. Algorytmy szyfrowania i&nbsp;podpisu
+				cyfrowego muszą być różne.
+			</p>
+			<p>
+				<b>Szyfrowanie</b>: Alicja chce wysłać do Bolka wiadomość
+				<i>m&lt;p</i>. Losuje liczbę&nbsp;<i>k</i>. Szyfrogramem tej
+				wiadomości jest para
+				<i>&lt; g <sup> k </sup>, &nbsp; m· &beta;<sup>k</sup> &gt; </i>
+				&nbsp;(mod&nbsp;<i>p</i>).
+			</p>
+			<p>
+				Bolek najpierw oblicza czynnik zaciemniający
+				<i>&beta;<sup>k</sup>&nbsp;=&nbsp;</i>(<i>g<sup>b</sup> </i>)
+				<i><sup>k</sup>&nbsp;=&nbsp;</i>(<i>g<sup>k</sup> </i>)
+				<i><sup>b</sup></i>
+				(mod&nbsp;<i>p</i>). Potem wykonuje dzielenie
+				byobliczyć&nbsp;<i>m</i>.
+			</p>
+			<p>
+				<b>Podpis</b>: Bolek chce podpisać wiadomość <i>m&lt;p</i>.
+				Losuje liczbę <i>k</i> względnie pierwszą
+				z&nbsp;<i>p</i>&minus;1<i>.</i>
+				Podpis pod tą wiadomością składa się z&nbsp;dwu części:
+				<i>r=g<sup>k</sup></i> (mod&nbsp;<i>p</i>) oraz
+				<i>x&nbsp;=&nbsp;</i>(<i>m&minus;b·r</i>)<i>·k </i>
+				<sup>&minus;1</sup> (mod&nbsp;<i>p&minus;</i>1). Sama
+				wiadomość&nbsp;<i>m</i>też musi być przekazana.
+			</p>
+			<p>
+				Alicja weryfikuje podpis sprawdzając równość (mod&nbsp;<i>p</i>)
+				dwu wielkości: <i>g<sup>m</sup></i> oraz
+				<i>r<sup>x</sup>·&beta;<sup>r </sup></i>.
+			</p>
+			Pożytecznym może być zastosowanie algorytmu Euklidesa opisanego
+			w&nbsp;
+			<a href="http://inf.ug.edu.pl/~amb/krypto-lab/Euklides.html"
+				>Euklides.html</a
+			>.
+			<h1>Zadanie:</h1>
+			<p>
+				Program o&nbsp;nazwie
+				<font face="Courier 10 Pitch">elgamal</font> korzysta
+				z&nbsp;pliku
+				<font face="Courier 10 Pitch">elgamal.txt</font> zawierającego
+				liczbę pierwszą&nbsp;<i>p</i> oraz generator&nbsp;<i>g</i>.
+				Testy programu będą wykonane z&nbsp;plikiem o&nbsp;zawartości:
+			</p>
+			<pre>
+1665997633093155705263923663680487185948531888850484859473375695734301776192932338784530163 170057347237941209366519667629336535698946063913573988287540019819022183488419112350737049</pre
+			>
+			Program wywołany z&nbsp;opcją
+			<ul>
+				<li>
+					<font face="Courier 10 Pitch">-k</font> czyta
+					z&nbsp;powyższego pliku i&nbsp;generuje parę kluczy
+					zapisanych w&nbsp;plikach
+					<font face="Courier 10 Pitch">private.txt</font> oraz
+					<font face="Courier 10 Pitch">public.txt</font>. Każdy klucz
+					składa się z&nbsp;dwu wierszy skopiowanych z&nbsp;powyższego
+					pliku oraz trzeciego wiersza zawierającego odpowiednio
+					wykładnik lub potęgę.
+				</li>
+				<li>
+					<font face="Courier 10 Pitch">-e</font> odczytuje klucz
+					publiczny, następnie odczytuje wiadomość z&nbsp;pliku
+					<font face="Courier 10 Pitch">plain.txt</font>
+					i&nbsp;zapisuje zaszyfrowaną wiadomość w&nbsp;pliku
+					<font face="Courier 10 Pitch">crypto.txt</font>. Jeśli
+					warunek <i>m&lt;p</i> nie jest spełniony, sygnalizuje błąd.
+				</li>
+				<li>
+					<font face="Courier 10 Pitch">-d</font> odczytuje klucz
+					prywatny i&nbsp;kryptogram, a&nbsp;odszyfrowaną wiadomość
+					zapisuje w&nbsp;pliku
+					<font face="Courier 10 Pitch">decrypt.txt</font>.
+				</li>
+				<li>
+					<font face="Courier 10 Pitch">-s</font> odczytuje klucz
+					prywatny, następnie odczytuje wiadomość z&nbsp;pliku
+					<font face="Courier 10 Pitch">message.txt</font>
+					i&nbsp;produkuje podpis, czyli dwa wiersze zapisane do pliku
+					<font face="Courier 10 Pitch">signature.txt</font>.
+				</li>
+				<li>
+					<font face="Courier 10 Pitch">-v</font> odczytuje klucz
+					publiczny, wiadomość z&nbsp;pliku
+					<font face="Courier 10 Pitch">message.txt</font> oraz podpis
+					z&nbsp;pliku
+					<font face="Courier 10 Pitch">signature.txt</font>
+					i&nbsp;weryfikuje ten podpis. Wynik weryfikacji (T/N) jest
+					wyświetlany na ekranie oraz jest zapisywany w&nbsp;pliku
+					<font face="Courier 10 Pitch">verify.txt</font>.
+				</li>
+			</ul>
+			Pliki <font face="Courier 10 Pitch">plain.txt</font> oraz
+			<font face="Courier 10 Pitch">message.txt</font> mogą być
+			identyczne. Sprawdzenie poprawności programu będzie m.in. zawierało
+			sprawdzenie identyczności plików
+			<font face="Courier 10 Pitch">plain.txt</font> oraz
+			<font face="Courier 10 Pitch">decrypt.txt</font> oraz sprawdzenie
+			poprawności weryfikowania podpisu poprawnego (tzn.
+			<font face="Courier 10 Pitch">signature.txt</font>
+			powstał w&nbsp;opisany wyżej sposób) i&nbsp;niepoprawnego
+			w&nbsp;przeciwnym przypadku. Program musi wykorzystywać działania
+			arytmetyczne na liczbach kilkusetbitowych, w&nbsp;niektórych
+			językach, np. python, są one dostępne bez dodatkowych bibliotek,
+			w&nbsp;innych, np. Java, konieczne będzie użycie odpowiednich
+			bibliotek. Program
+			<strong>nie ma prawa</strong> odczytywać innych plików niż
+			wskazanych w&nbsp;poszczególnych opcjach.
+		</div>
+		<div class="reverse"></div>
+		<div class="reverse">
+			Andrzej M. Borzyszkowski<img
+				src="../amb-100x100.png"
+				alt="Andrzej M. Borzyszkowski"
+				align="right"
+				height="100"
+				width="100"
+			/>
+		</div>
+		<div class="reverse">System ElGamala</div>
+		<div class="main">
+			<p>
+				System ten opiera się o&nbsp;trudność problemu Diffie-Hellmana,
+				wersja bardziej złożona jest podstawą amerykańskiego standardu
+				podpisu cyfrowego DSA. Przygotowanie kluczy wymaga znalezienie
+				liczby&nbsp;<i>p</i>, jeśli nie pseudopierwszej, to przynajmniej
+				takiej, że <i>p&minus;1</i> ma duży dzielnik pierwszy.
+				W&nbsp;zadaniu poniższym dla uproszczenia nie będziemy się tym
+				zajmować.
+			</p>
+			<p>
+				Następnym problemem jest znalezienie generatora.
+				<i>g</i>&nbsp;jest generatorem
+				Z<i>p·</i>&nbsp;=&nbsp;{1,2,...,<i>p&minus;1</i>} jeśli kolejne
+				potęgi <i>g</i>&nbsp;mod&nbsp;<i>p</i> wyczerpują cały zbiór
+				reszt. Generatorów jest dość dużo (dokładniej, ich liczba jest
+				równa liczbie Eulera <i>&phi;</i>(<i>p&minus;1</i>)).
+				W&nbsp;zadaniu poniższym dla uproszczenia również nie będziemy
+				się tym zajmować.
+			</p>
+			<p>
+				<b>Kryptosystem ElGamala</b>: dane są liczba pierwsza&nbsp;
+				<i>p</i>
+				oraz generator&nbsp;<i>g</i> grupy
+				Z<i>p·&nbsp;</i>=&nbsp;{1,2,...,<i>p&minus;</i>1}. Mogą być one
+				ustalone jeden raz dla większej liczby uczestników. Kluczem
+				prywatnym Bolka jest dowolna liczba&nbsp;<i>b</i>,
+				a&nbsp;kluczem publicznym potęga
+				<i>&beta;=g<sup>b</sup>&nbsp</i>(mod&nbsp;<i>p</i>). Nie można
+				obliczyć wykładnika ze znajomości potęgi, ale oczywiście
+				zależność odwrotna nie zachodzi. Tak więc kluczy tych nie można
+				zamienić miejscami. Algorytmy szyfrowania i&nbsp;podpisu
+				cyfrowego muszą być różne.
+			</p>
+			<p>
+				<b>Szyfrowanie</b>: Alicja chce wysłać do Bolka wiadomość
+				<i>m&lt;p</i>. Losuje liczbę&nbsp;<i>k</i>. Szyfrogramem tej
+				wiadomości jest para
+				<i>&lt;g<sup>k</sup>,&nbsp;m·&beta;<sup>k</sup> &gt; </i>
+				&nbsp;(mod&nbsp;<i>p</i>).
+			</p>
+			<p>
+				Bolek najpierw oblicza czynnik zaciemniający
+				<i>&beta;<sup>k</sup>&nbsp;=&nbsp;</i>(<i>g<sup>b</sup></i> )
+				<i><sup>k</sup>&nbsp;=&nbsp;</i>(<i>g<sup>k</sup></i> )
+				<i><sup>b</sup></i>
+				(mod&nbsp;<i>p</i>). Potem wykonuje dzielenie
+				byobliczyć&nbsp;<i>m</i>.
+			</p>
+			<p>
+				<b>Podpis</b>: Bolek chce podpisać wiadomość <i>m&lt;p</i>.
+				Losuje liczbę <i>k</i> względnie pierwszą
+				z&nbsp;<i>p</i>&minus;1<i>.</i>
+				Podpis pod tą wiadomością składa się z&nbsp;dwu części:
+				<i>r=g<sup>k</sup></i> (mod&nbsp;<i>p</i>) oraz
+				<i>x&nbsp;=&nbsp;</i>(<i>m&minus;b·r</i>)<i>·k </i>
+				<sup>&minus;1</sup> (mod&nbsp;<i>p&minus;</i>1). Sama
+				wiadomość&nbsp;<i>m</i>też musi być przekazana.
+			</p>
+			<p>
+				Alicja weryfikuje podpis sprawdzając równość (mod&nbsp;<i>p</i>)
+				dwu wielkości: <i>g<sup>m</sup></i> oraz
+				<i>r<sup>x</sup>·&beta;<sup>r </sup></i>.
+			</p>
+			Pożytecznym może być zastosowanie algorytmu Euklidesa opisanego
+			w&nbsp;<a href="http://inf.ug.edu.pl/~amb/krypto-lab/Euklides.html"
+				>Euklides.html</a
+			>.
+			<h1>Zadanie:</h1>
+			<p>
+				Program o&nbsp;nazwie
+				<font face="Courier 10 Pitch">elgamal</font> korzysta
+				z&nbsp;pliku
+				<font face="Courier 10 Pitch">elgamal.txt</font> zawierającego
+				liczbę pierwszą&nbsp;<i>p</i> oraz generator&nbsp;<i>g</i>.
+				Testy programu będą wykonane z&nbsp;plikiem o&nbsp;zawartości:
+			</p>
+			<pre>
+1665997633093155705263923663680487185948531888850484859473375695734301776192932338784530163 170057347237941209366519667629336535698946063913573988287540019819022183488419112350737049</pre
+			>
+			Program wywołany z&nbsp;opcją
+			<ul>
+				<li>
+					<font face="Courier 10 Pitch">-k</font> czyta
+					z&nbsp;powyższego pliku i&nbsp;generuje parę kluczy
+					zapisanych w&nbsp;plikach
+					<font face="Courier 10 Pitch">private.txt</font> oraz
+					<font face="Courier 10 Pitch">public.txt</font>. Każdy klucz
+					składa się z&nbsp;dwu wierszy skopiowanych z&nbsp;powyższego
+					pliku oraz trzeciego wiersza zawierającego odpowiednio
+					wykładnik lub potęgę.
+				</li>
+				<li>
+					<font face="Courier 10 Pitch">-e</font> odczytuje klucz
+					publiczny, następnie odczytuje wiadomość z&nbsp;pliku
+					<font face="Courier 10 Pitch">plain.txt</font>
+					i&nbsp;zapisuje zaszyfrowaną wiadomość w&nbsp;pliku
+					<font face="Courier 10 Pitch">crypto.txt</font>. Jeśli
+					warunek <i>m&lt;p</i> nie jest spełniony, sygnalizuje błąd.
+				</li>
+				<li>
+					<font face="Courier 10 Pitch">-d</font> odczytuje klucz
+					prywatny i&nbsp;kryptogram, a&nbsp;odszyfrowaną wiadomość
+					zapisuje w&nbsp;pliku
+					<font face="Courier 10 Pitch">decrypt.txt</font>.
+				</li>
+				<li>
+					<font face="Courier 10 Pitch">-s</font> odczytuje klucz
+					prywatny, następnie odczytuje wiadomość z&nbsp;pliku
+					<font face="Courier 10 Pitch">message.txt</font>
+					i&nbsp;produkuje podpis, czyli dwa wiersze zapisane do pliku
+					<font face="Courier 10 Pitch">signature.txt</font>.
+				</li>
+				<li>
+					<font face="Courier 10 Pitch">-v</font> odczytuje klucz
+					publiczny, wiadomość z&nbsp;pliku
+					<font face="Courier 10 Pitch">message.txt</font> oraz podpis
+					z&nbsp;pliku
+					<font face="Courier 10 Pitch">signature.txt</font>
+					i&nbsp;weryfikuje ten podpis. Wynik weryfikacji (T/N) jest
+					wyświetlany na ekranie oraz jest zapisywany w&nbsp;pliku
+					<font face="Courier 10 Pitch">verify.txt</font>.
+				</li>
+			</ul>
+			Pliki <font face="Courier 10 Pitch">plain.txt</font> oraz
+			<font face="Courier 10 Pitch">message.txt</font> mogą być
+			identyczne. Sprawdzenie poprawności programu będzie m.in. zawierało
+			sprawdzenie identyczności plików
+			<font face="Courier 10 Pitch">plain.txt</font> oraz
+			<font face="Courier 10 Pitch">decrypt.txt</font> oraz sprawdzenie
+			poprawności weryfikowania podpisu poprawnego (tzn.
+			<font face="Courier 10 Pitch">signature.txt</font>
+			powstał w&nbsp;opisany wyżej sposób) i&nbsp;niepoprawnego
+			w&nbsp;przeciwnym przypadku. Program musi wykorzystywać działania
+			arytmetyczne na liczbach kilkusetbitowych, w&nbsp;niektórych
+			językach, np. python, są one dostępne bez dodatkowych bibliotek,
+			w&nbsp;innych, np. Java, konieczne będzie użycie odpowiednich
+			bibliotek. Program
+			<strong>nie ma prawa</strong> odczytywać innych plików niż
+			wskazanych w&nbsp;poszczególnych opcjach.
+		</div>
+		<div class="reverse"></div>
+	</body>
+</html>

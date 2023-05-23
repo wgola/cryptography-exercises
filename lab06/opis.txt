@@ -1,0 +1,9 @@
+Autor: Wojciech Gola
+
+Aby program działał poprawnie należy uruchomić go z poziomu folderu, 
+w którym znajdują się wszystkie pliki poprzez polecenie:
+
+python3 stegano.py opcja1 opcja2
+
+Aby program poprawnie działał, wiadomość w pliku mess.txt powinna być zapisana jako ciąg 16 cyfr 
+zapisanych w systemie heksadecymalnym.
